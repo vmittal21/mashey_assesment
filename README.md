@@ -1,14 +1,12 @@
 # mashey_assesment
+Asteroid Hunter :: v1.1.0
 
-# Asteroid Hunter :: v1.1.0
+## API Key USED: 
+90GarKwRkqcLpOMJnSLkbvOa9LghMB0xcMJw1CIU
 
-# API Key USED: 
+## Details of API used for this assessment:
 
-## 90GarKwRkqcLpOMJnSLkbvOa9LghMB0xcMJw1CIU
-
-# Details of API used for this assessment:
-
-## Asteroids - NeoWs
+### Asteroids - NeoWs
 
 NeoWs (Near Earth Object Web Service) is a RESTful web service for near earth Asteroid information. With NeoWs a user can: search for Asteroids based on their closest approach date to Earth, lookup a specific Asteroid with its NASA JPL small body id, as well as browse the overall data-set.
 
@@ -25,8 +23,8 @@ start_date	YYYY-MM-DD	none	Starting date for asteroid search
 end_date	YYYY-MM-DD	7 days after start_date	Ending date for asteroid search
 api_key	string	DEMO_KEY	api.nasa.gov key for expanded usage
 
-## Example query
-### https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=DEMO_KEY
+#### Example query
+##### https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=DEMO_KEY
 
 Neo - Lookup
 Lookup a specific Asteroid based on its NASA JPL small body (SPK-ID) ID GET https://api.nasa.gov/neo/rest/v1/neo/
@@ -36,11 +34,11 @@ Parameter	Type	Default	Description
 asteroid_id	int	none	Asteroid SPK-ID correlates to the NASA JPL small body
 api_key	string	DEMO_KEY	api.nasa.gov key for expanded usage
 
-## Example query
-### https://api.nasa.gov/neo/rest/v1/neo/3542519?api_key=DEMO_KEY
+#### Example query
+##### https://api.nasa.gov/neo/rest/v1/neo/3542519?api_key=DEMO_KEY
 
-## Neo - Browse
-### Browse the overall Asteroid data-set GET https://api.nasa.gov/neo/rest/v1/neo/browse/
+#### Neo - Browse
+##### Browse the overall Asteroid data-set GET https://api.nasa.gov/neo/rest/v1/neo/browse/
 
-## Example query
-### https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY
+#### Example query
+##### https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY
