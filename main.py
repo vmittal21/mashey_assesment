@@ -137,6 +137,7 @@ class Mashey_Assessment:
         
 
         # request data for next weeks 
+        # loops until the month is same as the input month
         while int(next_start_month) == self.month and int(next_start_year) == self.year:
             req_data = requests.get(next_url).json()
             month_data.append(req_data.get("near_earth_objects"))
@@ -144,7 +145,7 @@ class Mashey_Assessment:
             next_start_month = next_url[37:57].split("=")[1].split("-")[1]
             next_start_year = next_url[37:57].split("=")[1].split("-")[0]
             next_start_date = next_url[37:57].split("=")[1].split("-")[2]
-            print(f'next year: {next_start_year} next month: {next_start_month} next_start_date: {next_start_date}')
+            
 
         print("Data successfully captured for given month.")
 
