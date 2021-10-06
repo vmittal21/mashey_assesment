@@ -115,10 +115,9 @@ class Mashey_Assessment:
         _start_date="01"
         _end_date="08"
 
+        # Takes the user input for month and year
         _year = input("Enter the year in YYYY format: ")
         _month = input("Enter the month in MM format: ")
-
-        _curr_month_num ="1"
 
         self.year = int(_year)
         self.month = int(_month)
@@ -129,13 +128,13 @@ class Mashey_Assessment:
 
         # initial request for first week
         req_data = requests.get(f'https://api.nasa.gov/neo/rest/v1/feed?start_date={self.year}-{self.month}-{_start_date}&end_date={self.year}-{self.month}-{_end_date}&api_key=90GarKwRkqcLpOMJnSLkbvOa9LghMB0xcMJw1CIU').json()
+        # getting the initial data for first week
         month_data.append(req_data.get("near_earth_objects"))
         next_url = req_data.get("links")["next"]
         next_start_month = next_url[37:57].split("=")[1].split("-")[1]
         next_start_year = next_url[37:57].split("=")[1].split("-")[0]
         next_start_date = next_url[37:57].split("=")[1].split("-")[2]
-        print(f'curr_year: {_year} curr_month: {_month}')
-        print(f'next year: {next_start_year} next month: {next_start_month} next_start_date: {next_start_date}')
+        
 
         # request data for next weeks 
         while int(next_start_month) == self.month and int(next_start_year) == self.year:
@@ -171,96 +170,12 @@ class Mashey_Assessment:
         with open('month_closest_approaches.json', "w") as temp_file:
             json.dump(response, temp_file)
 
-
-
-        # This gives us the total number of days in queried month of the year 
-        # self.days = self.get_total_days()
-        
-       # We create a list which will help us get the start date and end date for the api
-       # Instead of this hardcoded list, we can start from 1 and use another value as +7 until self.days 
-        #l = [1, 8, 15, 21, 27, self.days]
-
-        
-
-        #Two pointers are used to traverse through the list for start date and end date when requesting the data from api
-        # ptr1 = 0
-        # ptr2 = 1
-
-        # We create the required output with required keys and empty values 
-        # for i in range(1, self.days+1):
-
-        #     # Creates each date of the given month of the given year
-        #     d = datetime.datetime(self.year, self.month, i)
-        #     date = d.strftime("%Y-%m-%d")
-        #     # day = d.strftime("%d")
-        #     # Temporary dictionary which will be used to update the final output dictionary
-        #     temp = {date: None}
-        #     output.update(temp)
-
-        # This file will contain all the data retreived from requests to the API
-        # with open('month_closest_approaches.json', 'w') as final_list_file:  
-
-            # # Initializing start date as 1 and end date as 1   
-            # start_d = 1
-            # end_d = 1
-
-            # # Looping till we reach the end date of the month
-            # while start_d<self.days and end_d<self.days+1:
-
-            #     r = None
-            #     # End date is calculated according to the start date for every API request
-            #     end_d += start_d + ((self.days-start_d)%7)
-                
-            #     s =  datetime.datetime(self.year, self.month, start_d)
-            #     # Getting the start date for API request in desired format
-            #     start = s.strftime("%Y-%m-%d")
-
-            #     e = datetime.datetime(self.year, self.month, end_d)
-            #     # Getting the start date for API request in desired format
-            #     end = e.strftime("%Y-%m-%d")
-
-            #     print(start, end)
-
-                # # Each request of 7 days from starting of the month till the end of the month
-                # r = requests.get(f'https://api.nasa.gov/neo/rest/v1/feed?start_date=(f"{self.year}-{self.month}-01")&end_date=(f"{self.year}-{self.month}-08")&api_key=90GarKwRkqcLpOMJnSLkbvOa9LghMB0xcMJw1CIU').json()
-            
-                # new_list.append(r.get("near_earth_objects"))
-                
-                # start_d = end_d+1
-            
-
-
-        #     json.dump(new_list , final_list_file)
-
-
-        # with open('month_closest_approaches.json') as temp_file:
-        #         data = json.load(temp_file)
-        
-        # date_set = set()
-        # for i in range(0,len(data)):
-                       
-        #     for key in data[0]:
-
-        #         print(key)
-        #         break
-        #         if data[i].keys() not in data_set:
-        #             data_set.add(data[i].keys())
-        #             temp = {data[i][j]: data.get(data[i][j])}
-        #             output.update(temp)
-                
-        # with open('month_closes_approaches_output.json', 'w') as final_file: 
-        #     json.dump(output , final_file)
-
     #******************************************************************************
 
     def nearest_misses(self):
+
+        # Endpoint: https://api.nasa.gov/neo/rest/v1/neo/browse
         pass
 
     #******************************************************************************
 
-if __name__ == "__main__":
-
-    obj = Mashey_Assessment()
-    # obj.asteroid_closest_approach()
-    obj.month_closest_approaches()
-    # obj.nearest_misses()
