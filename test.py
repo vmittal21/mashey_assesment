@@ -1,14 +1,13 @@
-from main.py import Mashey_Assessment
+from main import Mashey_Assessment
 import pytest
 
 
-if __name__ == "__main__":
 
-    # Creating instance for the class
-    obj = Mashey_Assessment()
+# Creating instance for the class
+obj = Mashey_Assessment()
 
-    #Generating output for all functions 
+#Generating output for all functions 
     
-    obj.asteroid_closest_approach()
-    obj.month_closest_approaches()
-    obj.nearest_misses()
+obj.asteroid_closest_approach()
+obj.month_closest_approaches()
+obj.nearest_misses()
