@@ -1,7 +1,5 @@
-# mashey_assesment
+# Mashey Assesment
 Asteroid Hunter :: v1.1.0
-
-# Vidhi Mittal
 
 ## Details of API used for this assessment:
 
@@ -41,3 +39,34 @@ api_key	string	DEMO_KEY	api.nasa.gov key for expanded usage
 
 #### Example query
 ##### https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY
+
+# ------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------
+
+# How to run the project and file details
+
+1. main.py has all the functions and helper functions coded
+
+2. test.py executes the main.py file
+
+3. For everytime execution, run the following commands:
+    python test.py
+    (It will prompt for entering the year and month for generating data for month_closest_approaches)
+    (Use YYYY and MM integer format for inputting the month and year details)
+
+4. Raw JSON data is stored in following files:
+
+    * api_data.json
+    * asteroid_closest_approach.json
+    * month_closest_approaches.json
+    * nearest_misses.json
+
+5. The above raw data files are JSONified using the free resource https://jsonformatter.curiousconcept.com/ 
+
+6. JSONified files are stored for better readability:
+    
+    * api_data_jsonified.json
+    * asteroid_closest_approach_jsonified.json
+    * month_closest_approaches_jsonified.json
+    * nearest_misses_jsonified.json
+
