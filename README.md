@@ -70,5 +70,5 @@ api_key	string	DEMO_KEY	api.nasa.gov key for expanded usage
     * month_closest_approaches_jsonified.json
     * nearest_misses_jsonified.json
 
-7. test_first_and_last_function.py tests using pytest data when compared to sample required output
+7. test_first_function.py tests using pytest data when compared to sample required output
 

@@ -61,9 +61,6 @@ class Mashey_Assessment:
 
     def creating_output_unaltered_part_one(self, output, i):
 
-        # # initializing the dictionary format for output
-        # output = {"links": None, "id": None, "neo_reference_id": None, "name": None, "name_limited": None, "designation": None, "nasa_jpl_url": None, "absolute_magnitude_h": None, "estimated_diameter": None, "is_potentially_hazardous_asteroid": None, "close_approach_data": None, "orbital_data": None, "is_sentry_object": None}
-        
         # generating output fields 
         output["links"] = self.data["near_earth_objects"][i]["links"]
         output["id"] = self.data["near_earth_objects"][i]["id"]
@@ -99,6 +96,8 @@ class Mashey_Assessment:
 
         final_list = list()
 
+        print("Inside asteroid_closest_approach function.")
+
         for i in range(0, len(self.data["near_earth_objects"])):
 
             # initializing the dictionary format for output
@@ -128,14 +127,14 @@ class Mashey_Assessment:
     #******************************************************************************
 
     def month_closest_approaches(self):
-        """
-        Endpoint: 'https://api.nasa.gov/neo/rest/v1/feed?start_date=2021-01-01&end_date=2021-01-08'
-
-        """
+        
+        # Endpoint: 'https://api.nasa.gov/neo/rest/v1/feed?start_date=2021-01-01&end_date=2021-01-08'
 
         # first week of the any calendar month
         _start_date="01"
         _end_date="08"
+
+        print("Inside month_closest_approaches function.")
 
         # Takes the user input for month and year
         _year = input("Enter the year in YYYY format: ")
@@ -148,9 +147,10 @@ class Mashey_Assessment:
         # We create a list of dictionaries which will be used for generating json file with all dates of the month and data for each date
         month_data = list()
 
-        # initial request for first week
+        # Initial request for first week
         req_data = requests.get(f'https://api.nasa.gov/neo/rest/v1/feed?start_date={self.year}-{self.month}-{_start_date}&end_date={self.year}-{self.month}-{_end_date}&api_key=90GarKwRkqcLpOMJnSLkbvOa9LghMB0xcMJw1CIU').json()
-        # getting the initial data for first week
+        
+        # Getting the initial data for first week
         month_data.append(req_data.get("near_earth_objects"))
         next_url = req_data.get("links")["next"]
         next_start_month = next_url[37:57].split("=")[1].split("-")[1]
@@ -158,7 +158,7 @@ class Mashey_Assessment:
         next_start_date = next_url[37:57].split("=")[1].split("-")[2]
         
 
-        # request data for next weeks 
+        # Requesting data for next weeks 
         # loops until the month is same as the input month
         while int(next_start_month) == self.month and int(next_start_year) == self.year:
             req_data = requests.get(next_url).json()
@@ -171,7 +171,7 @@ class Mashey_Assessment:
 
         print("Data successfully captured for given month.")
 
-        # remove duplicate days
+        # Remove duplicate days as one date is duplicated when taking the next link data
         seen = set()
         final_output = list()
 
@@ -185,17 +185,20 @@ class Mashey_Assessment:
                         element_count += len(week[day])
                         final_output.append({"day":day, "_value":week[day]})
 
-        # sort by day
+        # Sorting according to the day
         final_output = sorted(final_output, key=lambda day:day["day"])
 
         response = {"element_count": element_count, "total_days": len(final_output), "payload":final_output}
 
+        # Final output
         with open('month_closest_approaches.json', "w") as temp_file:
             json.dump(response, temp_file)
 
     #******************************************************************************
 
     def nearest_misses(self):
+
+        # This function includes the 10 nearest misses, historical or expected, of asteroids impacting Earth
 
         # Endpoint: https://api.nasa.gov/neo/rest/v1/neo/browse
 
@@ -204,6 +207,8 @@ class Mashey_Assessment:
 
         #Creating the list which will contain the desired final JSON data
         final_list = list()
+
+        print("Inside nearest_misses function.")
 
         for i in range(0, len(self.data["near_earth_objects"])):
 
