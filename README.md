@@ -47,7 +47,7 @@ api_key	string	DEMO_KEY	api.nasa.gov key for expanded usage
 
 1. main.py has all the functions and helper functions coded
 
-2. test.py executes the main.py file
+2. execution_file.py executes the main.py file
 
 3. For everytime execution, run the following commands:
     python test.py
@@ -69,4 +69,6 @@ api_key	string	DEMO_KEY	api.nasa.gov key for expanded usage
     * asteroid_closest_approach_jsonified.json
     * month_closest_approaches_jsonified.json
     * nearest_misses_jsonified.json
+
+7. test_first_and_last_function.py tests using pytest data when compared to sample required output
 

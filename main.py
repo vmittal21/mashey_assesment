@@ -78,6 +78,8 @@ class Mashey_Assessment:
 
         return(output)
 
+    #******************************************************************************
+
     def creating_output_unaltered_part_two(self, output, i):
 
         output["orbital_data"] = self.data["near_earth_objects"][i]["orbital_data"]
@@ -85,6 +87,7 @@ class Mashey_Assessment:
 
         return(output)
 
+    #******************************************************************************
 
     def asteroid_closest_approach(self):
 

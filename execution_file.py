@@ -1,7 +1,4 @@
 from main import Mashey_Assessment
-import pytest
-
-
 
 # Creating instance for the class
 obj = Mashey_Assessment()
