@@ -50,8 +50,11 @@ api_key	string	DEMO_KEY	api.nasa.gov key for expanded usage
 2. execution_file.py executes the main.py file
 
 3. For everytime execution, run the following commands:
-    python test.py
+
+    python execution_file.py
+
     (It will prompt for entering the year and month for generating data for month_closest_approaches)
+
     (Use YYYY and MM integer format for inputting the month and year details)
 
 4. Raw JSON data is stored in following files:
