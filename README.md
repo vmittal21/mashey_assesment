@@ -40,8 +40,8 @@ api_key	string	DEMO_KEY	api.nasa.gov key for expanded usage
 #### Example query
 ##### https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY
 
-# ------------------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------------------
+# ***************************************************
+
 
 # How to run the project and file details
 
