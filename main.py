@@ -59,6 +59,33 @@ class Mashey_Assessment:
 
     #******************************************************************************
 
+    def creating_output_unaltered_part_one(self, output, i):
+
+        # # initializing the dictionary format for output
+        # output = {"links": None, "id": None, "neo_reference_id": None, "name": None, "name_limited": None, "designation": None, "nasa_jpl_url": None, "absolute_magnitude_h": None, "estimated_diameter": None, "is_potentially_hazardous_asteroid": None, "close_approach_data": None, "orbital_data": None, "is_sentry_object": None}
+        
+        # generating output fields 
+        output["links"] = self.data["near_earth_objects"][i]["links"]
+        output["id"] = self.data["near_earth_objects"][i]["id"]
+        output["neo_reference_id"] = self.data["near_earth_objects"][i]["neo_reference_id"]
+        output["name"] = self.data["near_earth_objects"][i]["name"]
+        output["name_limited"] = self.data["near_earth_objects"][i]["name_limited"]
+        output["designation"] = self.data["near_earth_objects"][i]["designation"]
+        output["nasa_jpl_url"] = self.data["near_earth_objects"][i]["nasa_jpl_url"]
+        output["absolute_magnitude_h"] = self.data["near_earth_objects"][i]["absolute_magnitude_h"]
+        output["estimated_diameter"] = self.data["near_earth_objects"][i]["estimated_diameter"]
+        output["is_potentially_hazardous_asteroid"] = self.data["near_earth_objects"][i]["is_potentially_hazardous_asteroid"]
+
+        return(output)
+
+    def creating_output_unaltered_part_two(self, output, i):
+
+        output["orbital_data"] = self.data["near_earth_objects"][i]["orbital_data"]
+        output["is_sentry_object"] = self.data["near_earth_objects"][i]["is_sentry_object"]
+
+        return(output)
+
+
     def asteroid_closest_approach(self):
 
         # Endpoint: 'https://api.nasa.gov/neo/rest/v1/neo/browse'
@@ -74,16 +101,8 @@ class Mashey_Assessment:
             # initializing the dictionary format for output
             output = {"links": None, "id": None, "neo_reference_id": None, "name": None, "name_limited": None, "designation": None, "nasa_jpl_url": None, "absolute_magnitude_h": None, "estimated_diameter": None, "is_potentially_hazardous_asteroid": None, "close_approach_data": None, "orbital_data": None, "is_sentry_object": None}
 
-            output["links"] = self.data["near_earth_objects"][i]["links"]
-            output["id"] = self.data["near_earth_objects"][i]["id"]
-            output["neo_reference_id"] = self.data["near_earth_objects"][i]["neo_reference_id"]
-            output["name"] = self.data["near_earth_objects"][i]["name"]
-            output["name_limited"] = self.data["near_earth_objects"][i]["name_limited"]
-            output["designation"] = self.data["near_earth_objects"][i]["designation"]
-            output["nasa_jpl_url"] = self.data["near_earth_objects"][i]["nasa_jpl_url"]
-            output["absolute_magnitude_h"] = self.data["near_earth_objects"][i]["absolute_magnitude_h"]
-            output["estimated_diameter"] = self.data["near_earth_objects"][i]["estimated_diameter"]
-            output["is_potentially_hazardous_asteroid"] = self.data["near_earth_objects"][i]["is_potentially_hazardous_asteroid"]
+            # Calling the function which will get the unchanged data for each entry before the "close_approach_data"
+            self.creating_output_unaltered_part_one(output, i)
 
             # Sorting the "close_approach_data" based on value of "epoch_date_close_approach" in ascending order
             temp = self.data["near_earth_objects"][i]["close_approach_data"]
@@ -93,8 +112,8 @@ class Mashey_Assessment:
             # Using the first entry generated after sorting the list of dictionaries "close_approach_data"
             output["close_approach_data"] = newlist[0]
 
-            output["orbital_data"] = self.data["near_earth_objects"][i]["orbital_data"]
-            output["is_sentry_object"] = self.data["near_earth_objects"][i]["is_sentry_object"]
+            # Calling the function which will get the unchanged data for each entry after the "close_approach_data"
+            self.creating_output_unaltered_part_two(output, i)
 
             final_list.append(output)
 
@@ -176,7 +195,42 @@ class Mashey_Assessment:
     def nearest_misses(self):
 
         # Endpoint: https://api.nasa.gov/neo/rest/v1/neo/browse
-        pass
+
+        # Opening the API file
+        self.open_file()
+
+        #Creating the list which will contain the desired final JSON data
+        final_list = list()
+
+        for i in range(0, len(self.data["near_earth_objects"])):
+
+            # initializing the dictionary format for output
+            output = {"links": None, "id": None, "neo_reference_id": None, "name": None, "name_limited": None, "designation": None, "nasa_jpl_url": None, "absolute_magnitude_h": None, "estimated_diameter": None, "is_potentially_hazardous_asteroid": None, "close_approach_data": None, "orbital_data": None, "is_sentry_object": None}
+
+            # Calling the function which will get the unchanged data for each entry before the "close_approach_data"
+            self.creating_output_unaltered_part_one(output, i)
+
+            # Sorting the "close_approach_data" based on value of astronomical miss distance in ascending order
+            temp = self.data["near_earth_objects"][i]["close_approach_data"]
+
+            newlist = sorted(temp, key=lambda k: k["miss_distance"]["astronomical"]) 
+
+            # Using the first 10 entries generated after sorting the list of dictionaries astronomical miss distance
+            output["close_approach_data"] = newlist[0:10]
+
+            # Calling the function which will get the unchanged data for each entry after the "close_approach_data"
+            self.creating_output_unaltered_part_two(output, i)
+
+            # Adding the generated output to the final list desired
+            final_list.append(output)
+
+            # Adding all desired data to JSON file
+            # The file is empty initially
+            with open('nearest_misses.json', 'w') as final_list_file:
+                json.dump(final_list , final_list_file)
+        
+        self.close_file()
+      
 
     #******************************************************************************
 
